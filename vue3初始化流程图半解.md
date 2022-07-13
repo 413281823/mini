@@ -60,4 +60,11 @@ http://localhost:55018/packages/vue/examples/composition/todomvc
 但是注意⚠️一下我们此行的目的只是为了摸清vue3的初始化过程到底经历了什么，所以我们不要跑偏，既然我们找到了创建app实例的地方，那么我们就能找到关键的mount，我们接着往下看
 
 ![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1066248ba73a4d60afe71d8313e48e72~tplv-k3u1fbpfcp-watermark.image?)
-这里我们看到了mount方法，我们在286打上断点，他这里写得很明显了是否挂载，我们既然是第一次进来的那么一定没有挂载，进来然后看到vnode这么多年了大家应该都知道了vnode就是虚拟dom，这里应该是创建虚拟dom的地方
+这里我们看到了mount方法，我们在286打上断点，他这里写得很明显了是否挂载，我们既然是第一次进来的那么一定没有挂载，进来然后看到vnode这么多年了大家应该都知道了vnode就是虚拟dom，这里应该是创建虚拟dom的地方,然后我们会又一次来到分叉口
+
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f786b48171b346d1b5f01152216bfb38~tplv-k3u1fbpfcp-watermark.image?)
+这里应该是判断一下我们是什么渲染模式，我们客户端渲染应该走的render，进入render函数
+
+![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/82aec20ef5c94093ae57defe88c36522~tplv-k3u1fbpfcp-watermark.image?)
+这里我直接步入了，可以看到和我们上面的想法一致第二个参数传入div#app，这个patch就是一个虚拟dom转真实dom并且追加到宿主#app中。
+    至此其实整个vue3实例创建，挂载的流程，我们其实已经摸清楚了，具体实现有待我去深究。
